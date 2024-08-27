@@ -19,7 +19,7 @@ Add the following to your `Cargo.toml`:
 cielo-rs-sdk = { git = "https://github.com/thelezend/cielo-rs-sdk.git", branch = "main"}
 ```
 
-Sometimes your Cargo.lock file will point to an older version of the SDK. To fix this, you can run cargo update to update the SDK to the latest version.
+Sometimes your `Cargo.lock` file will point to an older version of the SDK. To fix this, you can run `cargo update` command to update the SDK to the latest version.
 
 ## Usage
 
