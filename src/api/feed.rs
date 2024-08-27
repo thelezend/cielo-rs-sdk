@@ -1,4 +1,4 @@
-use crate::{constants, models, reqwest_ext};
+use crate::{constants, models};
 use strum_macros::Display;
 
 use super::CieloApi;
@@ -65,11 +65,11 @@ impl CieloApi {
     ///
     /// # Returns
     ///
-    /// * `Result<Vec<models::feed::Item>, reqwest_ext::Error>` - A result containing a vector of feed items or an error.
+    /// * `Result<Vec<models::feed::Item>, crate::Error>` - A result containing a vector of feed items or an error.
     pub async fn get_feed(
         &self,
         filters: Filters,
-    ) -> Result<Vec<models::feed::Item>, reqwest_ext::Error> {
+    ) -> Result<Vec<models::feed::Item>, crate::Error> {
         let url = format!("{}feed", constants::URL);
 
         let mut request = self.client.get(url);
@@ -114,7 +114,7 @@ impl CieloApi {
 
         // Check if the response status is not 200 OK
         if !response.status().is_success() {
-            return Err(reqwest_ext::Error::StatusNot200(response.text().await?));
+            return Err(crate::Error::StatusNot200(response.text().await?));
         }
 
         // Parse the response JSON into the expected structure

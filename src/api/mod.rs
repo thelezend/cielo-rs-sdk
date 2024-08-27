@@ -4,10 +4,7 @@ use std::time::Duration;
 
 use reqwest::header;
 
-use crate::{
-    constants,
-    reqwest_ext::{self, get_retry_strategy},
-};
+use crate::{constants, reqwest_ext::get_retry_strategy};
 
 /// Struct representing the Cielo API client
 #[derive(Debug, Clone)]
@@ -17,7 +14,7 @@ pub struct CieloApi {
 }
 
 impl CieloApi {
-    /// Creates a new instance of CieloApi
+    /// Creates a new instance of CieloApi.
     ///
     /// # Arguments
     ///
@@ -28,13 +25,13 @@ impl CieloApi {
     ///
     /// # Returns
     ///
-    /// * `Result<Self, reqwest_ext::Error>` - A result containing the CieloApi instance or an error.
+    /// * `Result<Self, crate::Error>` - A result containing the CieloApi instance or an error.
     pub fn new(
         api_key: &str,
         min_retry_interval: Option<u64>,
         max_retry_interval: Option<u64>,
         max_retries: Option<u32>,
-    ) -> Result<Self, reqwest_ext::Error> {
+    ) -> Result<Self, crate::Error> {
         let mut headers = header::HeaderMap::new();
 
         let mut auth_value = header::HeaderValue::from_str(api_key).unwrap();
