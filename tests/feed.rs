@@ -16,7 +16,7 @@ async fn test_cielo_api_request() {
 
     // Fetch feed data using the `get_feed` method in `CieloApi`.
     let response = cielo_api.get_feed(api::feed::Filters::default()).await;
-    
+
     // Assert that the feed data was fetched successfully.
     assert!(
         response.is_ok(),
