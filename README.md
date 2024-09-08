@@ -2,7 +2,7 @@
 
 Cielo Rust SDK is a Rust library for interacting with the [Cielo API](https://developer.cielo.finance/reference/getfeed). It provides a convenient way to fetch and filter feed data from the Cielo platform.
 
-> **IMPORTANT: This is not an official SDK. It is a personal project for learning Rust and API development. The included endpoints are primarily for personal use in my own projects and may not cover all features of the Cielo API. However, your contributions are welcome!**
+> **IMPORTANT: This is not an official SDK. It is a personal project for learning Rust and API development. The included endpoints are primarily for personal use in my own projects and may not cover all features of the Cielo API. However, new endpoints can be added upon request. Contributions are welcome!**
 
 ## Features
 

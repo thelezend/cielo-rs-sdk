@@ -16,6 +16,8 @@ pub struct CieloApi {
 impl CieloApi {
     /// Creates a new instance of CieloApi.
     ///
+    /// This function initializes a new CieloApi client with the provided API key and optional retry parameters.
+    ///
     /// # Arguments
     ///
     /// * `api_key` - A string slice that holds the API key.
@@ -23,9 +25,15 @@ impl CieloApi {
     /// * `max_retry_interval` - An optional maximum retry interval in milliseconds.
     /// * `max_retries` - An optional maximum number of retries.
     ///
-    /// # Returns
+    /// # Errors
     ///
-    /// * `Result<Self, crate::Error>` - A result containing the CieloApi instance or an error.
+    /// This function returns a `crate::Error` if the client cannot be built.
+    ///
+    /// # Examples
+    ///
+    /// ```no_run
+    /// let api = CieloApi::new("your_api_key", Some(100), Some(1000), Some(3)).unwrap();
+    /// ```
     pub fn new(
         api_key: &str,
         min_retry_interval: Option<u64>,

@@ -59,13 +59,34 @@ pub enum TxType {
 impl CieloApi {
     /// Fetches the feed based on the provided filters.
     ///
+    /// This function sends a request to the feed endpoint with the specified filters and returns a list of feed items.
+    ///
     /// # Arguments
     ///
     /// * `filters` - A Filters struct containing various filter options.
     ///
-    /// # Returns
+    /// # Errors
     ///
-    /// * `Result<Vec<models::feed::Item>, crate::Error>` - A result containing a vector of feed items or an error.
+    /// This function returns a `crate::Error` if the request fails or the response status is not 200 OK.
+    ///
+    /// # Examples
+    ///
+    /// ```no_run
+    /// let filters = Filters {
+    ///     wallet: Some("your_wallet_address".to_string()),
+    ///     limit: Some(10),
+    ///     list_id: None,
+    ///     chains: Some(vec!["solana".to_string()]),
+    ///     tx_types: Some(vec![TxType::Swap]),
+    ///     tokens: None,
+    ///     min_usd: Some(100),
+    ///     new_trades: Some(true),
+    ///     start_from: None,
+    ///     from_timestamp: None,
+    ///     to_timestamp: None,
+    /// };
+    /// let feed = api.get_feed(filters).await.unwrap();
+    /// ```
     pub async fn get_feed(
         &self,
         filters: Filters,

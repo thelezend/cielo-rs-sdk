@@ -1,8 +1,15 @@
 use serde::{Deserialize, Serialize};
 
-/// Struct representing an item in the feed.
+/// Represents an item in the feed.
 #[derive(Debug, Serialize, Deserialize, Clone)]
-pub struct Item {
+pub enum Item {
+    /// A swap transaction.
+    Swap(Swap),
+}
+
+/// Represents a swap transaction.
+#[derive(Debug, Serialize, Deserialize, Clone)]
+pub struct Swap {
     /// Wallet address.
     pub wallet: String,
     /// Label for the wallet.
