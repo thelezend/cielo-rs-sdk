@@ -24,8 +24,7 @@ pub struct Swap {
     pub index: u32,
     /// Timestamp of the transaction.
     pub timestamp: u64,
-    /// Unknown block number.
-    /// NOTE: THIS IS NOT THE BLOCK NUMBER OF THE TRANSACTION
+    /// Block number.
     pub block: u64,
     /// Decentralized exchange name.
     pub dex: Option<String>,
