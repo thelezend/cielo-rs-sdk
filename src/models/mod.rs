@@ -1,3 +1,8 @@
+//! Models module containing data structures for API responses and paging.
+//!
+//! This module defines the core data structures used for handling API responses
+//! and pagination in the application.
+
 pub mod feed;
 
 use serde::{Deserialize, Serialize};
@@ -13,6 +18,8 @@ pub struct Response<T> {
     pub status: String,
     /// The data field containing the response data.
     pub data: ResponseData<T>,
+    /// The message field containing additional information or context.
+    pub message: Option<String>,
 }
 
 /// A struct representing the data field in the API response.
@@ -35,6 +42,6 @@ pub struct Paging {
     pub total_rows_in_page: u64,
     /// Indicates if there is a next page.
     pub has_next_page: bool,
-    /// The cursor for the next page, if available.
-    pub next_cursor: Option<String>,
+    /// The object ID for the next page, if available.
+    pub next_object: Option<String>,
 }

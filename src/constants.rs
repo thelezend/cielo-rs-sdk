@@ -1,3 +1,5 @@
+//! This module contains constants used throughout the project.
+
 /// Base URL for the Cielo feed API
 pub const URL: &str = "https://feed-api.cielo.finance/api/v1/";
 

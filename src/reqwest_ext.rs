@@ -1,3 +1,5 @@
+//!This module provides extensions for the reqwest library, including retry strategies.
+
 use std::time::Duration;
 
 use reqwest_retry::{
@@ -5,13 +7,17 @@ use reqwest_retry::{
     RetryTransientMiddleware, Retryable, RetryableStrategy,
 };
 
-/// Creates a retry strategy with exponential backoff.
+/// Creates a retry strategy using exponential backoff.
 ///
 /// # Arguments
 ///
 /// * `min_retry_interval` - Minimum retry interval in milliseconds.
 /// * `max_retry_interval` - Maximum retry interval in milliseconds.
 /// * `max_retries` - Maximum number of retries.
+///
+/// # Returns
+///
+/// * `RetryTransientMiddleware<ExponentialBackoff, Retry>` - A middleware configured with the retry policy and strategy.
 pub fn get_retry_strategy(
     min_retry_interval: u64,
     max_retry_interval: u64,
@@ -31,11 +37,15 @@ pub fn get_retry_strategy(
 pub struct Retry;
 
 impl RetryableStrategy for Retry {
-    /// Handles the retry logic based on the response.
+    /// Handles the retry logic based on the response or error.
     ///
     /// # Arguments
     ///
-    /// * `res` - The result of the reqwest response or middleware error.
+    /// * `res` - A result containing either a `reqwest::Response` or a `reqwest_middleware::Error`.
+    ///
+    /// # Returns
+    ///
+    /// * `Option<Retryable>` - An option indicating whether the request should be retried.
     fn handle(
         &self,
         res: &Result<reqwest::Response, reqwest_middleware::Error>,

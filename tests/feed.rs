@@ -15,12 +15,20 @@ async fn test_cielo_api_request() {
     let cielo_api = CieloApi::new(&api_key, None, None, None).unwrap();
 
     // Fetch feed data using the `get_feed` method in `CieloApi`.
-    let response = cielo_api.get_feed(api::feed::Filters::default()).await;
+    let response = cielo_api
+        .get_feed(api::feed::Filters {
+            limit: Some(2),
+            ..Default::default()
+        })
+        .await;
 
     // Assert that the feed data was fetched successfully.
     assert!(
         response.is_ok(),
         "Failed to fetch feed: {:?}",
-        response.err()
+        response.as_ref().err(),
     );
+
+    // Assert that the feed data is not empty.
+    assert!(!response.unwrap().is_empty(), "Feed data is empty");
 }

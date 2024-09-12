@@ -1,3 +1,7 @@
+//! This module provides functionality for interacting with the Cielo feed API.
+//!
+//! It includes structures and methods for querying and filtering feed data.
+
 use crate::{constants, models};
 use strum_macros::Display;
 
@@ -28,31 +32,56 @@ pub struct Filters {
     pub from_timestamp: Option<u64>,
     /// Filter transactions to a specific UNIX timestamp.
     pub to_timestamp: Option<u64>,
+    /// Include marketcap in the response.
+    pub include_market_cap: Option<bool>,
 }
 
 /// Transaction types for filtering the feed.
+///
+/// This enum represents various types of transactions that can be used to filter the feed.
+/// Each variant corresponds to a specific type of transaction in the Cielo ecosystem.
 #[derive(Display, Debug, Clone)]
 #[strum(serialize_all = "snake_case")]
 pub enum TxType {
+    /// Bridge transaction between different chains or networks
     Bridge,
+    /// Creation of a new smart contract
     ContractCreation,
+    /// Interaction with an existing smart contract
     ContractInteraction,
+    /// Flash loan transaction
     Flashloan,
+    /// Lending or borrowing transaction
     Lending,
+    /// Liquidity pool-related transaction
     Lp,
+    /// NFT lending transaction
     NftLending,
+    /// NFT liquidation transaction
     NftLiquidation,
+    /// Minting of a new NFT
     NftMint,
+    /// NFT sweep (bulk purchase) transaction
     NftSweep,
+    /// NFT trade transaction
     NftTrade,
+    /// NFT transfer transaction
     NftTransfer,
+    /// Option-related transaction
     Option,
+    /// Perpetual contract transaction
     Perp,
+    /// Reward or yield farming transaction
     Reward,
+    /// Staking transaction
     Staking,
+    /// SudoPool-related transaction
     SudoPool,
+    /// Token swap transaction
     Swap,
+    /// Simple transfer of tokens or cryptocurrency
     Transfer,
+    /// Wrapping or unwrapping of tokens (e.g., ETH to WETH)
     Wrap,
 }
 
@@ -72,20 +101,27 @@ impl CieloApi {
     /// # Examples
     ///
     /// ```no_run
-    /// let filters = Filters {
-    ///     wallet: Some("your_wallet_address".to_string()),
-    ///     limit: Some(10),
-    ///     list_id: None,
-    ///     chains: Some(vec!["solana".to_string()]),
-    ///     tx_types: Some(vec![TxType::Swap]),
-    ///     tokens: None,
-    ///     min_usd: Some(100),
-    ///     new_trades: Some(true),
-    ///     start_from: None,
-    ///     from_timestamp: None,
-    ///     to_timestamp: None,
-    /// };
-    /// let feed = api.get_feed(filters).await.unwrap();
+    /// # use cielo_rs_sdk::{CieloApi, api};
+    /// # #[tokio::main]
+    /// # async fn main() {
+    /// # let api_key = "your_api_key";
+    /// # let cielo_api = CieloApi::new(api_key, None, None, None).unwrap();
+    ///     let filters = api::feed::Filters {
+    ///         wallet: Some("your_wallet_address".to_string()),
+    ///         limit: Some(10),
+    ///         list_id: None,
+    ///         chains: Some(vec!["solana".to_string()]),
+    ///         tx_types: Some(vec![api::feed::TxType::Swap]),
+    ///         tokens: None,
+    ///         min_usd: Some(100),
+    ///         new_trades: Some(true),
+    ///         start_from: None,
+    ///         from_timestamp: None,
+    ///         to_timestamp: None,
+    ///         include_market_cap: Some(true),
+    ///     };
+    ///     let feed = cielo_api.get_feed(filters).await.unwrap();
+    /// # }
     /// ```
     pub async fn get_feed(
         &self,

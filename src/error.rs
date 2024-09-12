@@ -1,3 +1,5 @@
+//! This module defines custom error types for the Cielo API.
+
 /// Custom error type for the Cielo API
 #[derive(Debug, thiserror::Error)]
 pub enum Error {

@@ -2,17 +2,22 @@
 name = "cielo-rs-sdk"
 version = "0.1.0"
 edition = "2021"
+authors = ["thelezend"]
+license = "MIT OR Apache-2.0"
+readme = "README.md"
+description = "Rust library for interacting with the Cielo API."
+repository = "https://github.com/thelezend/cielo-rs-sdk"
 
 [dependencies]
 reqwest = { version = "0.12.7", features = ["json"] }
 reqwest-middleware = { version = "0.3.3" }
 reqwest-retry = { version = "0.6.1" }
-serde = { version = "1.0.209", features = ["derive"] }
-serde_json = "1.0.127"
+serde = { version = "1.0.210", features = ["derive"] }
+serde_json = "1.0.128"
 strum = "0.26.3"
 strum_macros = "0.26.4"
 thiserror = "1.0.63"
 
 [dev-dependencies]
 dotenvy = "0.15.7"
-tokio = { version = "1.39.3", features = ["full"] }
+tokio = { version = "1.40.0", features = ["full"] }

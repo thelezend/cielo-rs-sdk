@@ -1,3 +1,16 @@
+//! The `api` module provides functionality for interacting with the Cielo API.
+//!
+//! This module contains the main `CieloApi` struct and its implementation,
+//! as well as submodules for specific API endpoints.
+//!
+//! # Examples
+//!
+//! ```
+//! use cielo_rs_sdk::CieloApi;
+//!
+//! let api = CieloApi::new("your_api_key", Some(100), Some(1000), Some(3)).unwrap();
+//! ```
+//!
 pub mod feed;
 
 use std::time::Duration;
@@ -6,9 +19,15 @@ use reqwest::header;
 
 use crate::{constants, reqwest_ext::get_retry_strategy};
 
-/// Struct representing the Cielo API client
 #[derive(Debug, Clone)]
+/// Represents the Cielo API client.
+///
+/// This struct allows you to create a new client instance and interact with the Cielo API.
+/// It includes a [`ClientWithMiddleware`] for handling HTTP requests
+///
+/// [`ClientWithMiddleware`]: https://docs.rs/reqwest-middleware/latest/reqwest_middleware/struct.ClientWithMiddleware.html
 pub struct CieloApi {
+    /// The HTTP client with middleware for handling requests and retries.
     client: reqwest_middleware::ClientWithMiddleware,
     // default_params: HashMap<String, String>,
 }
@@ -31,7 +50,9 @@ impl CieloApi {
     ///
     /// # Examples
     ///
-    /// ```no_run
+    /// ```
+    /// use cielo_rs_sdk::CieloApi;
+    ///
     /// let api = CieloApi::new("your_api_key", Some(100), Some(1000), Some(3)).unwrap();
     /// ```
     pub fn new(

@@ -1,0 +1,64 @@
+name: CI
+
+on:
+    push:
+        branches: ["main"]
+    pull_request:
+        branches: ["main"]
+
+env:
+    CARGO_TERM_COLOR: always
+
+jobs:
+    lint:
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: Checkout repository
+              uses: actions/checkout@v4
+
+            - name: Run lint checks
+              run: cargo clippy -- -D warnings
+
+    build:
+        strategy:
+            matrix:
+                os: [ubuntu-latest, macos-latest, windows-latest]
+        runs-on: ${{ matrix.os }}
+
+        steps:
+            - name: Checkout repository
+              uses: actions/checkout@v4
+
+            - name: Build
+              run: cargo build --verbose
+
+    test:
+        needs: build
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: Checkout repository
+              uses: actions/checkout@v4
+
+            - name: Set up environment variables
+              run: echo "CIELO_API_KEY=${{ secrets.CIELO_API_KEY }}" >> $GITHUB_ENV
+
+            - name: Run tests
+              run: cargo test --verbose
+
+            - name: Run examples
+              run: |
+                  cargo run --example feed_without_filters
+                  cargo run --example feed_with_filters
+
+    docs:
+        needs: build
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: Checkout repository
+              uses: actions/checkout@v4
+
+            - name: Run docs
+              run: cargo doc --verbose
