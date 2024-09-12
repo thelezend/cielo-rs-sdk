@@ -3,9 +3,11 @@ name = "cielo-rs-sdk"
 version = "0.1.0"
 edition = "2021"
 authors = ["thelezend"]
+keywords = ["cielo", "sdk"]
 license = "MIT OR Apache-2.0"
 readme = "README.md"
 description = "Rust library for interacting with the Cielo API."
+documentation = "https://docs.rs/cielo-rs-sdk"
 repository = "https://github.com/thelezend/cielo-rs-sdk"
 
 [dependencies]
